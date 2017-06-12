@@ -28,7 +28,7 @@ def update_rover(Rover, data):
             if np.isfinite(tot_time):
                   Rover.total_time = tot_time
       # Print out the fields in the telemetry data dictionary
-      print(data.keys())
+      #print(data.keys())
       # The current speed of the rover in m/s
       Rover.vel = convert_to_float(data["speed"])
       # The current position of the rover
@@ -49,12 +49,26 @@ def update_rover(Rover, data):
       Rover.picking_up = np.int(data["picking_up"])
       # Update number of rocks found
       Rover.samples_found = Rover.samples_to_find - np.int(data["sample_count"])
-
-      print('speed =',Rover.vel, 'position =', Rover.pos, 'throttle =', 
-      Rover.throttle, 'steer_angle =', Rover.steer, 'near_sample:', Rover.near_sample, 
-      'picking_up:', data["picking_up"], 'sending pickup:', Rover.send_pickup, 
-      'total time:', Rover.total_time, 'samples remaining:', data["sample_count"], 
-      'samples found:', Rover.samples_found)
+      
+      #-- Different telemetry outputs depending on what needs to be seen. Uncomment as required
+      #-- Only displays if debug flag is set
+      if Rover.debug:
+            #print('speed =',Rover.vel, 'position =', Rover.pos, 'throttle =', 
+            #        Rover.throttle, 'steer_angle =', Rover.steer, 'near_sample:', Rover.near_sample, 
+            #        'picking_up:', data["picking_up"], 'sending pickup:', Rover.send_pickup, 
+            #        'total time:', Rover.total_time, 'samples remaining:', data["sample_count"], 
+            #        'samples found:', Rover.samples_found, end = '\n')
+            
+            print ('mode =', Rover.mode, 'count =', Rover.count, 'yaw =', Rover.yaw,
+                   'target_yaw =', Rover.target_yaw, 'dist_home =', Rover.dist_home, 'yaw error = ', Rover.yaw_error,
+                   'steering angle = ',Rover.steer,'target_angle =',Rover.target_angle, 'obs? ', Rover.obs_stuck, end = '\n')
+                 
+            #print ('mode =', Rover.mode, 'dist_home =', Rover.dist_home, 'yaw =', Rover.yaw,
+            #        'target_yaw =', Rover.target_yaw, 'yaw err = ', Rover.yaw_error, 'steer angle = ', Rover.steer, 'ter angle =', Rover.ter_angle,
+            #        'vel =', Rover.vel, end = '\n')
+            
+            #print ('mode =', Rover.mode, end = '\n')
+      
       # Get the current image from the center camera of the rover
       imgString = data["image"]
       image = Image.open(BytesIO(base64.b64decode(imgString)))
@@ -132,6 +146,8 @@ def create_output_images(Rover):
       cv2.putText(map_add,"Fidelity: "+str(fidelity)+'%', (0, 40), 
                   cv2.FONT_HERSHEY_COMPLEX, 0.4, (255, 255, 255), 1)
       cv2.putText(map_add,"Rocks Found: "+str(Rover.samples_found), (0, 55), 
+                  cv2.FONT_HERSHEY_COMPLEX, 0.4, (255, 255, 255), 1)
+      cv2.putText(map_add,"Taariq Hassan", (0, 190), 
                   cv2.FONT_HERSHEY_COMPLEX, 0.4, (255, 255, 255), 1)
 
       # Convert map and vision image to base64 strings for sending to server
