@@ -100,7 +100,7 @@ In this mode, the rover simply drives towards the home location. The rover alrea
 
 #### 2. Launching in autonomous mode your rover can navigate and map autonomously.  Explain your results and how you might improve them in your writeup.  
 
-The rover was able to successfully complete its mission, mapping **97.3%** of the environment with a fidelity of **76.9%** and collecting all **6** rock samples in approximately **13** minutes. The simulator was run at a resolution of **1280x720** with the quality set to **good** at an average frame rate of **27 FPS**. A recording of the run can be found [here](https://)
+The rover was able to successfully complete its mission, mapping **97.3%** of the environment with a fidelity of **76.9%** and collecting all **6** rock samples in approximately **13** minutes. The simulator was run at a resolution of **1280x720** with the quality set to **good** at an average frame rate of **27 FPS**. A recording of the run can be found [here](https://youtu.be/3ypcx4DqvGs)
 
 I am reasonably happy with the performance of the rover, however, there are many areas that can be improved.
 
